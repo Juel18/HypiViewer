@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    background: #020617;
+    color: #e5e7eb;
+}
+
+header {
+    padding: 20px;
+    border-bottom: 1px solid #1e293b;
+}
+
+h1 {
+    margin: 0;
+    color: #38bdf8;
+}
+
+.search {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 6px;
+    background: #020617;
+    color: #e5e7eb;
+    border: 1px solid #1e293b;
+}
+
+button {
+    background: #38bdf8;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.card {
+    padding: 10px;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 40px);
+    gap: 6px;
+}
+
+.item {
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip {
+    position: absolute;
+    background: #020617;
+    border: 1px solid #1e293b;
+    padding: 6px;
+    font-size: 12px;
+    display: none;
+    white-space: pre-line;
+    z-index: 10;
+}
+
+.item:hover .tooltip {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.error {
+    color: #f87171;
+    padding: 10px;
+}
