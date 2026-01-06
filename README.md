@@ -1,18 +1,17 @@
-# SkyBlock Stats Viewer
+# HypiViewer
 
-Full-feature static SkyBlock profile viewer inspired by SkyCrypt.
-
-## Features
-- Profiles
-- Skills
-- Dungeons
-- Slayers
-- Inventory & Armor
-- Networth
-- GitHub Pages compatible
-
-## API
-https://sky.shiiyu.moe
+Static website for viewing Hypixel SkyBlock player statistics.
 
 ## Hosting
-GitHub Pages
+Designed for GitHub Pages.
+
+## Proxy
+Uses Cloudflare Workers as a CORS-enabled proxy to SkyCrypt API.
+
+## Technologies
+- HTML
+- CSS
+- JavaScript
+
+## Data Source
+SkyCrypt (sky.shiiyu.moe)
