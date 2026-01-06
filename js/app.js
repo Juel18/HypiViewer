@@ -1,6 +1,7 @@
-let currentData;
+let current;
 
 async function search() {
+
     const name = document.getElementById("username").value.trim();
 
     if (!name) {
@@ -12,7 +13,7 @@ async function search() {
     document.getElementById("loading").classList.remove("hidden");
 
     try {
-        const res = await fetch(`https://billowing-glade-0a90.akash-786-2000.workers.dev/?player=${name}`);
+        const res = await fetch(`https://billowing-glade-0a90.akash-786-2000.workers.dev?player=${name}`);
 
         if (!res.ok) throw new Error("Failed to fetch profile");
 
@@ -27,7 +28,8 @@ async function search() {
 }
 
 function load(data) {
-    currentData = data;
+
+    current = data;
 
     document.getElementById("content").classList.remove("hidden");
 
@@ -51,17 +53,19 @@ function load(data) {
 }
 
 function renderProfile(id) {
-    const profile = currentData.profiles[id];
+
+    const profile = current.profiles[id];
 
     const c = profile.data.currencies;
 
     document.getElementById("economy").innerHTML = `
         <h3>Economy</h3>
-        <p>Purse: ${Number(c.coin_purse).toLocaleString()}</p>
-        <p>Bank: ${Number(c.bank).toLocaleString()}</p>
+        <p>Purse: ${Number(c.coin_purse || 0).toLocaleString()}</p>
+        <p>Bank: ${Number(c.bank || 0).toLocaleString()}</p>
     `;
 
     const nw = profile.data.networth;
+
     if (nw) {
         document.getElementById("networth").innerHTML = `
             <h3>Networth</h3>
@@ -70,23 +74,19 @@ function renderProfile(id) {
         `;
     }
 
-    let skillHtml = `<h3>Skills</h3><div class="grid">`;
+    let html = `<h3>Skills</h3><div class="grid">`;
 
     for (const s in profile.data.skills) {
         const sk = profile.data.skills[s];
-        skillHtml += `
-            <div class="card">
-                ${s}<br>
-                Level ${sk.level}
-            </div>
-        `;
+        html += `<div class="card">${s}<br>Level ${sk.level}</div>`;
     }
 
-    skillHtml += "</div>";
+    html += "</div>";
 
-    document.getElementById("skills").innerHTML = skillHtml;
+    document.getElementById("skills").innerHTML = html;
 
     const d = profile.data.dungeons;
+
     document.getElementById("dungeons").innerHTML = `
         <h3>Dungeons</h3>
         Catacombs Level: ${d.catacombs.level}
@@ -96,53 +96,19 @@ function renderProfile(id) {
 
     for (const s in profile.data.slayers) {
         const sl = profile.data.slayers[s];
-        slayerHtml += `
-            <div class="card">
-                ${s}<br>
-                XP ${Number(sl.xp).toLocaleString()}
-            </div>
-        `;
+        slayerHtml += `<div class="card">${s}<br>XP ${Number(sl.xp || 0).toLocaleString()}</div>`;
     }
 
     slayerHtml += "</div>";
 
     document.getElementById("slayers").innerHTML = slayerHtml;
-
-    renderItems("inventory", "Inventory", profile.data.inventory);
-    renderItems("armor", "Armor", profile.data.armor);
-    renderItems("enderchest", "Ender Chest", profile.data.ender_chest);
-}
-
-function renderItems(containerId, title, items) {
-    if (!items || !items.length) return;
-
-    let html = `<h3>${title}</h3><div class="item-grid">`;
-
-    for (const item of items) {
-        if (!item || !item.id) continue;
-
-        const img = `https://mc-heads.net/item/${item.id}`;
-        const lore = (item.lore || []).join("\n");
-
-        html += `
-        <div class="item">
-            <img src="${img}">
-            <div class="tooltip">
-                <strong>${item.name || item.id}</strong>
-                ${lore ? "\n\n" + lore : ""}
-            </div>
-        </div>`;
-    }
-
-    html += `</div>`;
-    document.getElementById(containerId).innerHTML = html;
 }
 
 window.search = search;
 
 const params = new URLSearchParams(location.search);
+
 if (params.get("player")) {
     document.getElementById("username").value = params.get("player");
     search();
 }
-
