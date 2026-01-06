@@ -12,7 +12,7 @@ async function search() {
     document.getElementById("loading").classList.remove("hidden");
 
     try {
-        const res = await fetch(`https://hypiviewer.YOURSUBDOMAIN.workers.dev?player=${name}`);
+        const res = await fetch(`https://billowing-glade-0a90.akash-786-2000.workers.dev/?player=${name}`);
 
         if (!res.ok) throw new Error("Failed to fetch profile");
 
@@ -145,3 +145,4 @@ if (params.get("player")) {
     document.getElementById("username").value = params.get("player");
     search();
 }
+
